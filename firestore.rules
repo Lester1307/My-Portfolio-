@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow public read on projects and skills
+    match /projects/{document} {
+      allow read: if true;
+      allow write: if true;
+    }
+    
+    match /skills/{document} {
+      allow read: if true;
+      allow write: if true;
+    }
+    
+    // Allow public write/create on contact messages, and read/delete for administrative queries
+    match /contact_messages/{document} {
+      allow create: if true;
+      allow read, update, delete: if true;
+    }
+  }
+}
